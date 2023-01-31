@@ -12,6 +12,73 @@
     </delete>
 
     <select id="getList" resultType="org.zerock.api01.todo.dto.TodoDTO">
-        select * from tbl_todo
+        select *
+        from
+            tbl_todo
+
+        <where>
+            <if test="condition == 'total'">
+                title like concat('%', #{keyword}, '%')
+                or
+                writer like concat('%', #{keyword}, '%')
+            </if>
+
+            <if test="condition == 'title'">
+                and title like concat('%', #{keyword}, '%')
+            </if>
+
+            <if test="condition == 'writer'">
+                and writer like concat('%', #{keyword}, '%')
+            </if>
+        </where>
+
+        order by tno desc
+        limit #{skip}, #{size}
     </select>
+
+    <select id="getCount" resultType="int">
+        select count(*)
+        from
+            tbl_todo
+
+    </select>
+
+    <update id="updateTodo">
+        update
+            tbl_todo
+        set
+            title=#{title},
+            writer=#{writer}
+        where
+            tno=#{tno}
+
+    </update>
+
+    <insert id="addTodo">
+        insert into
+            tbl_todo (
+                title,
+                writer
+            )
+        values (
+            #{title},
+            #{writer}
+        )
+
+
+    </insert>
+
+    <select id="searchList" resultType="org.zerock.api01.todo.dto.TodoDTO">
+
+        select
+            *
+        from
+            tbl_todo
+
+        <if test = "!(searchType==null or keyword ==null)" >
+            WHERE ${searchType} = #{keyword}
+        </if>
+
+    </select>
+
 </mapper>

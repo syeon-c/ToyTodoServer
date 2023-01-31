@@ -21,51 +21,37 @@ public class PageRequestDTO {
     @Builder.Default
     private int size = 10;
 
-    private String type; // 검색의 종류 t,c, w, tc,tw, twc
 
-    private String keyword;
+//    private String link;
+//
+//    public String getLink() {
+//
+//        if (link == null) {
+//            StringBuilder builder = new StringBuilder();
+//
+//            builder.append("page=" + this.page);
+//
+//            builder.append("&size=" + this.size);
+//
+//
+//            if (type != null && type.length() > 0) {
+//                builder.append("&type=" + type);
+//            }
+//
+//            if (keyword != null) {
+//                try {
+//                    builder.append("&keyword=" + URLEncoder.encode(keyword, "UTF-8"));
+//                } catch (UnsupportedEncodingException e) {
+//                }
+//            }
+//            link = builder.toString();
+//        }
+//
+//        return link;
+//    }
 
-    //추가된 내용들
-    private LocalDate from;
+    public int getSkip() {
 
-    private LocalDate to;
-
-    private Boolean completed;
-
-
-    public String[] getTypes() {
-        if (type == null || type.isEmpty()) {
-            return null;
-        }
-        return type.split("");
-    }
-
-
-    private String link;
-
-    public String getLink() {
-
-        if (link == null) {
-            StringBuilder builder = new StringBuilder();
-
-            builder.append("page=" + this.page);
-
-            builder.append("&size=" + this.size);
-
-
-            if (type != null && type.length() > 0) {
-                builder.append("&type=" + type);
-            }
-
-            if (keyword != null) {
-                try {
-                    builder.append("&keyword=" + URLEncoder.encode(keyword, "UTF-8"));
-                } catch (UnsupportedEncodingException e) {
-                }
-            }
-            link = builder.toString();
-        }
-
-        return link;
+        return (page -1) * size;
     }
 }

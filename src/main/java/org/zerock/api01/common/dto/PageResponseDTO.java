@@ -5,10 +5,12 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.LongStream;
 
 @Getter
 @ToString
-public class PageResponseDTO<T> {
+public class PageResponseDTO<E> {
 
     private int page;
     private int size;
@@ -24,10 +26,13 @@ public class PageResponseDTO<T> {
     //다음 페이지의 존재 여부
     private boolean next;
 
-    private List<T> dtoList;
+    private List<E> dtoList;
+
+    private List<Long> pageNumList;
+
 
     @Builder(builderMethodName = "withAll")
-    public PageResponseDTO(PageRequestDTO pageRequestDTO, List<T> dtoList, int total){
+            public PageResponseDTO(PageRequestDTO pageRequestDTO, List<E> dtoList, int total){
 
         if(total <= 0){
             return;
@@ -50,6 +55,8 @@ public class PageResponseDTO<T> {
         this.prev = this.start > 1;
 
         this.next =  total > this.end * this.size;
+
+        this.pageNumList = LongStream.rangeClosed(start,end).boxed().collect(Collectors.toList());
 
     }
 }
