@@ -61,11 +61,23 @@ public class TodoMapperTests {
         TodoRequestDTO todoRequestDTO = new TodoRequestDTO();
         todoRequestDTO.setPage(1);
         todoRequestDTO.setSize(10);
-        todoRequestDTO.setCondition("");
-        todoRequestDTO.setKeyword("");
+        todoRequestDTO.setCondition("total,writer");
+        todoRequestDTO.setKeyword("11");
 
         List<TodoDTO> dtoList = todoMapper.getList(todoRequestDTO);
         System.out.println("Search: " + dtoList);
     }
 
+    @Test
+    public void testList() {
+
+        TodoRequestDTO todoRequestDTO = new TodoRequestDTO();
+        todoRequestDTO.setPage(1);
+        todoRequestDTO.setSize(10);
+        todoRequestDTO.setCondition("title");
+        todoRequestDTO.setKeyword(null);
+        todoMapper.getCount(todoRequestDTO);
+
+        //sSystem.out.println("Search: " + dtoList);
+    }
 }
