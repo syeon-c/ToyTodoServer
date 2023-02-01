@@ -14,6 +14,14 @@ public class TodoRequestDTO extends PageRequestDTO {
     String condition;
 
     public String[] getCondition() {
-        return condition.split(",");
+
+        return condition.trim().length() == 0 ? null : condition.split(",");
+
+    }
+
+    public String getKeyword() {
+
+        return keyword.trim().length() == 0 ? null : keyword;
+
     }
 }

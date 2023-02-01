@@ -36,10 +36,7 @@ public class TodoController {
         log.info(todoRequestDTO);
         log.info("===========TodoReqDTO==========");
         log.info(todoRequestDTO.getKeyword());
-//        log.info(todoRequestDTO.getCondition());
-        for(String c : todoRequestDTO.getCondition()) {
-            log.info(c);
-        }
+        log.info(todoRequestDTO.getCondition());
         log.info(todoRequestDTO.getPage());
         log.info(todoRequestDTO.getSize());
 
