@@ -1,7 +1,9 @@
 package org.zerock.api01.todo.service;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.zerock.api01.todo.dto.TodoDTO;
 
 @SpringBootTest
 public class TodoServiceTest {
@@ -10,5 +12,12 @@ public class TodoServiceTest {
     TodoService todoService;
 
 
+//    @Test
+//    public void updateTodoTest() {
+//        Long id = 458L;
+//
+//        TodoDTO todoDTO = todoService.getTodo(id);
+//
+//    }
 
 }

@@ -54,43 +54,43 @@
 
     </select>
 
-<!--    <update id="updateTodo">-->
-<!--        update-->
-<!--            tbl_todo-->
-<!--        set-->
-<!--            title=#{title},-->
-<!--            writer=#{writer}-->
-<!--        where-->
-<!--            tno=#{tno}-->
+    <update id="updateTodo">
+        update
+            tbl_todo
+        set
+            title=#{title},
+            writer=#{writer}
+        where
+            tno=#{tno}
 
-<!--    </update>-->
+    </update>
 
-<!--    <insert id="addTodo">-->
-<!--        insert into-->
-<!--            tbl_todo (-->
-<!--                title,-->
-<!--                writer-->
-<!--            )-->
-<!--        values (-->
-<!--            #{title},-->
-<!--            #{writer}-->
-<!--        )-->
+    <insert id="addTodo">
+        insert into
+            tbl_todo (
+                title,
+                writer
+            )
+        values (
+            #{title},
+            #{writer}
+        )
 
 
-<!--    </insert>-->
+    </insert>
 
-<!--    <select id="searchList" resultType="org.zerock.api01.todo.dto.TodoDTO">-->
+    <select id="searchList" resultType="org.zerock.api01.todo.dto.TodoDTO">
 
-<!--        select-->
-<!--            *-->
-<!--        from-->
-<!--            tbl_todo-->
+        select
+            *
+        from
+            tbl_todo
 
-<!--        <include refid="search"></include>-->
+        <include refid="search"></include>
 
-<!--        order by tno desc-->
-<!--        limit #{skip}, #{size}-->
+        order by tno desc
+        limit #{skip}, #{size}
 
-<!--    </select>-->
+    </select>
 
 </mapper>
