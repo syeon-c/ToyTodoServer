@@ -66,12 +66,14 @@ public class TodoController {
     @PutMapping("")
     public void updateTodo(@RequestBody TodoDTO todoDTO) {
         log.info("=======UpdateTodo======");
+        log.info(todoDTO);
         todoService.updateTodo(todoDTO);
     }
 
     @PostMapping("")
     public void addTodo(@RequestBody TodoDTO todoDTO) {
         log.info("=======Add Todo======");
+
         todoService.addTodo(todoDTO);
     }
 

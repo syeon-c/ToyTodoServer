@@ -17,4 +17,13 @@ public class TodoDTO {
     private String title;
 
     private String writer;
+
+    @Override
+    public String toString() {
+        return "TodoDTO{" +
+                "tno=" + tno +
+                ", title='" + title + '\'' +
+                ", writer='" + writer + '\'' +
+                '}';
+    }
 }
