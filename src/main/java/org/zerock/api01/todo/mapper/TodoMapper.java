@@ -15,7 +15,7 @@ public interface TodoMapper {
 
     List<TodoDTO> getList(TodoRequestDTO todoRequestDTO);
 
-    int getCount(PageRequestDTO pageRequestDTO);
+    int getCount(TodoRequestDTO todoRequestDTO);
 
     void deleteTodo(Long id);
 

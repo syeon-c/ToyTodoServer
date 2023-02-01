@@ -9,8 +9,6 @@ public interface TodoService {
 
     TodoDTO getTodo(Long id);
 
-    PageResponseDTO<TodoDTO> getList(PageRequestDTO pageRequestDTO);
-
     PageResponseDTO<TodoDTO> getList(TodoRequestDTO todoRequestDTO);
 
     void deleteTodo(Long id);
