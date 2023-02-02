@@ -1,22 +1,22 @@
 package org.zerock.api01.todo.controller;
 
+import io.minio.GetObjectResponse;
 import io.minio.errors.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.zerock.api01.common.util.service.MinioService;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Paths;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @Log4j2
@@ -87,10 +87,20 @@ public class FileController {
     }
 
     @GetMapping("{fileName}")
-    public byte[] getFile(@PathVariable String fileName) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+    public ResponseEntity<byte[]> getFile(@PathVariable String fileName) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
 
         log.info(fileName);
-        return minioService.getFileObject(fileName);
+
+        GetObjectResponse getObjectResponse = minioService.getFileObjectResponse(fileName);
+        byte[] fileByte = minioService.getFileByteArr(getObjectResponse);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.valueOf(getObjectResponse.headers().get("Content-Type")));
+
+        log.info("=================================");
+        log.info("Byte: " + fileByte);
+        log.info("Header: " + headers);
+
+        return new ResponseEntity<>(fileByte, headers, HttpStatus.OK);
 
     }
 }

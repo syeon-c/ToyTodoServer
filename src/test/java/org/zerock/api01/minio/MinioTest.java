@@ -7,12 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
-import org.zerock.api01.common.dto.FileDTO;
 import org.zerock.api01.common.util.service.MinioServiceImpl;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
@@ -49,13 +47,14 @@ public class MinioTest {
     }
 
     @Test
-    public void getImageTest() throws IOException, ServerException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+    public void getImageTestByByteArr() throws IOException, ServerException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
 
-        String fileName = "test.png";
-        InputStream response = minioService.getFileObject(fileName);
+        String fileName = "2023-02-02T15:56:42.871324test.png";
+        GetObjectResponse response = minioService.getFileObjectResponse(fileName);
+        byte[] arr = minioService.getFileByteArr(response);
 
         log.info("============Get Image Test=============");
-        log.info(response);
+        log.info(arr);
 
     }
 

@@ -75,28 +75,33 @@ public class MinioServiceImpl implements MinioService {
     }
 
     @Override
-    public byte[] getFileObject(String fileName) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+    public GetObjectResponse getFileObjectResponse(String fileName) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
 
-        InputStream inputStream =  minioClient.getObject(GetObjectArgs.builder()
+        GetObjectResponse getObjectResponse =  minioClient.getObject(GetObjectArgs.builder()
                 .bucket(bucketName)
                 .object(fileName)
                 .build());
 
-        return IOUtils.toByteArray(inputStream);
-
-
+        return getObjectResponse;
     }
 
+    @Override
+    public byte[] getFileByteArr(GetObjectResponse response) throws IOException {
+
+        return IOUtils.toByteArray(response);
+
+    }
 
     public String uploadFile(MultipartFile multipartFile) {
         String fileName = "";
 
         try {
-            log.info("File Uploaded...." + multipartFile.getName());
+            log.info("File Uploaded...." + multipartFile.getName() + ", " + multipartFile.getContentType());
 
             fileName = setUUID(multipartFile.getOriginalFilename());
             minioClient.putObject(PutObjectArgs.builder()
                     .bucket(bucketName)
+                    .contentType(multipartFile.getContentType())
                     .object(fileName)
                     .stream(multipartFile.getInputStream(), multipartFile.getSize(), -1)
                     .build());
