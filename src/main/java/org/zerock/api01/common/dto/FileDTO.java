@@ -26,6 +26,7 @@ public class FileDTO implements Serializable {
 
     private Long size;
 
+    //UUID
     private String filename;
 
 }

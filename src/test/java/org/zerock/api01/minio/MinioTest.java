@@ -1,5 +1,7 @@
 package org.zerock.api01.minio;
 
+import io.minio.GetObjectResponse;
+import io.minio.errors.*;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,9 @@ import org.zerock.api01.common.util.service.MinioServiceImpl;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 
 @SpringBootTest
 @Log4j2
@@ -34,19 +39,23 @@ public class MinioTest {
                 new FileInputStream("/Users/choeseoyeon/Desktop/학부모이미지.jpeg")
         );
 
-        FileDTO fileDTO = FileDTO.builder()
-                .title("testFile")
-                .description("test file")
-                .file(mockMultipartFile)
-                .build();
+//        FileDTO fileDTO = FileDTO.builder()
+//                .title("testFile")
+//                .description("test file")
+//                .file(mockMultipartFile)
+//                .build();
 
-        log.info(minioService.uploadFile(fileDTO));
+        log.info(minioService.uploadFile(mockMultipartFile));
     }
 
     @Test
-    public void getImageTest() throws IOException {
+    public void getImageTest() throws IOException, ServerException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
 
+        String fileName = "test.png";
+        InputStream response = minioService.getFileObject(fileName);
 
+        log.info("============Get Image Test=============");
+        log.info(response);
 
     }
 
