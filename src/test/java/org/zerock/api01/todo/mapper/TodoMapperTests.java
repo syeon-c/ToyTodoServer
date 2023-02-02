@@ -44,7 +44,7 @@ public class TodoMapperTests {
     @Test
     public void testAddList() {
 
-        IntStream.rangeClosed(1, 500).forEach((i) -> {
+        IntStream.rangeClosed(1, 100).forEach((i) -> {
             TodoDTO todo = TodoDTO.builder()
                     .title("Title" + i)
                     .writer("user" + i)
@@ -75,9 +75,7 @@ public class TodoMapperTests {
         todoRequestDTO.setPage(1);
         todoRequestDTO.setSize(10);
         todoRequestDTO.setCondition("title");
-        todoRequestDTO.setKeyword(null);
+        todoRequestDTO.setKeyword("11");
         todoMapper.getCount(todoRequestDTO);
-
-        //sSystem.out.println("Search: " + dtoList);
     }
 }

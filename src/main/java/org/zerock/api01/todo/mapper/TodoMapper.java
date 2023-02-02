@@ -11,8 +11,6 @@ public interface TodoMapper {
 
     TodoDTO getTodo(Long id);
 
-    List<TodoDTO> getList(PageRequestDTO pageRequestDTO);
-
     List<TodoDTO> getList(TodoRequestDTO todoRequestDTO);
 
     int getCount(TodoRequestDTO todoRequestDTO);
