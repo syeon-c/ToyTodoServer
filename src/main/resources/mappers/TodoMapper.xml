@@ -65,7 +65,7 @@
 
     </update>
 
-    <insert id="addTodo">
+    <insert id="addTodo" useGeneratedKeys="true" keyProperty="tno">
         insert into
             tbl_todo (
                 title,
@@ -75,7 +75,6 @@
             #{title},
             #{writer}
         )
-
 
     </insert>
 

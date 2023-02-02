@@ -6,7 +6,9 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
 import org.zerock.api01.common.dto.PageRequestDTO;
 import org.zerock.api01.common.dto.PageResponseDTO;
+import org.zerock.api01.todo.dto.FileDTO;
 import org.zerock.api01.todo.dto.TodoDTO;
+import org.zerock.api01.todo.dto.TodoFileDTO;
 import org.zerock.api01.todo.dto.TodoRequestDTO;
 import org.zerock.api01.todo.mapper.TodoMapper;
 import org.zerock.api01.todo.service.TodoService;
@@ -71,8 +73,11 @@ public class TodoController {
     }
 
     @PostMapping("")
-    public void addTodo(@RequestBody TodoDTO todoDTO) {
+    public void addTodo(@RequestBody TodoFileDTO todoFileDTO) {
         log.info("=======Add Todo======");
+
+
+        TodoDTO todoDTO = todoFileDTO.getTodoDTO();
 
         todoService.addTodo(todoDTO);
     }

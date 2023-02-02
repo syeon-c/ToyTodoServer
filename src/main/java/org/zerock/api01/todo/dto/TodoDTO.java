@@ -26,4 +26,6 @@ public class TodoDTO {
                 ", writer='" + writer + '\'' +
                 '}';
     }
+
+
 }
