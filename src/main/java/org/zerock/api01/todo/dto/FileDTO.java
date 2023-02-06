@@ -1,6 +1,5 @@
 package org.zerock.api01.todo.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @Getter

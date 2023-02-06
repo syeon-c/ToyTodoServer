@@ -4,20 +4,20 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zerock.api01.todo.mapper.FileMapper">
 
-    <insert id="addFiles">
-        <selectKey resultType="Long" keyProperty="tno" order="BEFORE">
-            select MAX(tno) from tbl_todo
-        </selectKey>
-
+    <insert id="addFiles" parameterType="fileAddDTO">
         insert into
             tbl_files (
                 fname,
                 tno
             )
             values (
-                #{fname},
-                #{tno}
+                <foreach collection="list" item="item" separator=",">
+
+                    (#{item.fname}, #{item.tno})
+
+                </foreach>
             )
+
 
     </insert>
 </mapper>

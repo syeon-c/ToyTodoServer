@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.zerock.api01.todo.dto.FileAddDTO;
 import org.zerock.api01.todo.dto.FileDTO;
 import org.zerock.api01.todo.mapper.FileMapper;
 
@@ -16,10 +17,10 @@ public class FileServiceImpl implements FileService {
     private final FileMapper fileMapper;
 
     @Override
-    public void addFiles(FileDTO fileDTO) {
+    public void addFiles(FileAddDTO fileAddDTO) {
 
-        log.info("addFiles: " + fileDTO);
+        log.info("addFiles: " + fileAddDTO);
 
-        fileMapper.addFiles(fileDTO);
+        fileMapper.addFiles(fileAddDTO);
     }
 }

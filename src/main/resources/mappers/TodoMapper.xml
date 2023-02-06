@@ -65,7 +65,7 @@
 
     </update>
 
-    <insert id="addTodo" useGeneratedKeys="true" keyProperty="tno">
+    <insert id="addTodo" parameterType="todoDTO" useGeneratedKeys="true" keyProperty="tno">
         insert into
             tbl_todo (
                 title,

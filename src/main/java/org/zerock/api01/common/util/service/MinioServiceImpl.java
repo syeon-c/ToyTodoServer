@@ -7,18 +7,15 @@ import io.minio.messages.Item;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.compress.utils.IOUtils;
-import org.apache.ibatis.javassist.bytecode.ByteArray;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import org.zerock.api01.common.dto.FileDTO;
+import org.zerock.api01.common.dto.MinioDTO;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,15 +49,15 @@ public class MinioServiceImpl implements MinioService {
     }
 
     @Override
-    public List<FileDTO> getListObjects() {
-        List<FileDTO> objects = new ArrayList<>();
+    public List<MinioDTO> getListObjects() {
+        List<MinioDTO> objects = new ArrayList<>();
         try {
             Iterable<Result<Item>> result = minioClient.listObjects(ListObjectsArgs.builder()
                     .bucket(bucketName)
                     .recursive(true)
                     .build());
             for (Result<Item> item : result) {
-                objects.add(FileDTO.builder()
+                objects.add(MinioDTO.builder()
                         .filename(item.get().objectName())
                         .size(item.get().size())
                         .url(getPreSignedUrl(item.get().objectName()))

@@ -4,13 +4,12 @@ package org.zerock.api01.todo.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
-import org.zerock.api01.common.dto.PageRequestDTO;
 import org.zerock.api01.common.dto.PageResponseDTO;
-import org.zerock.api01.todo.dto.FileDTO;
+import org.zerock.api01.todo.dto.FileAddDTO;
 import org.zerock.api01.todo.dto.TodoDTO;
 import org.zerock.api01.todo.dto.TodoFileDTO;
 import org.zerock.api01.todo.dto.TodoRequestDTO;
-import org.zerock.api01.todo.mapper.TodoMapper;
+import org.zerock.api01.todo.service.FileService;
 import org.zerock.api01.todo.service.TodoService;
 
 @RestController
@@ -21,6 +20,8 @@ import org.zerock.api01.todo.service.TodoService;
 public class TodoController {
 
     private final TodoService todoService;
+
+    private final FileService fileService;
 
 //    @GetMapping("list")
 //    public PageResponseDTO<TodoDTO> getList(PageRequestDTO pageRequestDTO){
@@ -80,6 +81,15 @@ public class TodoController {
         TodoDTO todoDTO = todoFileDTO.getTodoDTO();
 
         todoService.addTodo(todoDTO);
+
+        FileAddDTO fileAddDTO = FileAddDTO.builder()
+                .tno(todoDTO.getTno())
+                .fnames(todoFileDTO.getFileNames())
+                .build();
+
+
+        fileService.addFiles(fileAddDTO);
+
     }
 
 }

@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FileDTO implements Serializable {
+public class MinioDTO implements Serializable {
 
     private static final long serialVersionUID = 232836038145089522L;
 

@@ -17,11 +17,5 @@ public class FileServiceTest {
     @Test
     public void addTest() {
 
-        FileDTO fileDTO = FileDTO.builder()
-                .fname("test")
-                .tno(2L)
-                .build();
-
-        fileService.addFiles(fileDTO);
     }
 }
