@@ -8,15 +8,16 @@
         insert into
             tbl_files (
                 fname,
-                tno
+                tno,
+                isMain
             )
-            values (
-                <foreach collection="list" item="item" separator=",">
+            values
+                <foreach collection="fileInfo" item="info" separator=",">
 
-                    (#{item.fname}, #{item.tno})
+                    (#{info.fname}, #{tno}, #{info.isMain})
 
                 </foreach>
-            )
+
 
 
     </insert>

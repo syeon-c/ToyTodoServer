@@ -10,10 +10,17 @@ public class TodoFileDTO {
 
     TodoDTO todoDTO;
 
-    private List<String> fileNames;
+    private List<FileInfoDTO> fileInfo;
 
+    @Override
+    public String toString() {
+        return "TodoFileDTO{" +
+                "todoDTO=" + todoDTO +
+                ", fileInfo=" + fileInfo +
+                '}';
+    }
 
-//    private List<String> fileNames;
+    //    private List<String> fileNames;
 //
 //    public TodoFileDTO(Long tno, String title, String writer) {
 //        super(tno, title, writer);

@@ -76,7 +76,7 @@ public class TodoController {
     @PostMapping("")
     public void addTodo(@RequestBody TodoFileDTO todoFileDTO) {
         log.info("=======Add Todo======");
-
+        log.info(todoFileDTO);
 
         TodoDTO todoDTO = todoFileDTO.getTodoDTO();
 
@@ -84,9 +84,10 @@ public class TodoController {
 
         FileAddDTO fileAddDTO = FileAddDTO.builder()
                 .tno(todoDTO.getTno())
-                .fnames(todoFileDTO.getFileNames())
+                .fileInfo(todoFileDTO.getFileInfo())
                 .build();
 
+        log.info(fileAddDTO);
 
         fileService.addFiles(fileAddDTO);
 

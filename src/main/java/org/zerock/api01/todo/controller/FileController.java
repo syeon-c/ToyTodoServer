@@ -62,7 +62,7 @@ public class FileController {
 //    }
 
     @PostMapping("upload")
-    public List<String> uploadFiles(@RequestParam("files") List<MultipartFile> files) {
+    public List<String> uploadFiles(@RequestParam("files") List<MultipartFile> files) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
 
         List<String> fileNames = new ArrayList<>();
 
@@ -71,7 +71,9 @@ public class FileController {
 
         for (MultipartFile multipartFile : files) {
 
-            fileNames.add(minioService.uploadFile(multipartFile));
+            String fileName = minioService.uploadFile(multipartFile);
+            fileNames.add(fileName);
+            minioService.saveThumbnail(multipartFile, fileName);
 
 //            String filePath = imageDirectory + UUID.randomUUID() + getExtension(multipartFile);
 

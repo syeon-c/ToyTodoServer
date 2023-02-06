@@ -13,7 +13,14 @@ public class FileAddDTO {
 
     private Long tno;
 
-    private List<String> fnames;
+    private List<FileInfoDTO> fileInfo;
 
+    @Override
+    public String toString() {
+        return "FileAddDTO{" +
+                "tno=" + tno +
+                ", fileInfo=" + fileInfo +
+                '}';
+    }
 }
 

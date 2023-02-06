@@ -6,6 +6,8 @@ import io.minio.messages.Bucket;
 import io.minio.messages.Item;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import net.coobird.thumbnailator.Thumbnailator;
+import net.coobird.thumbnailator.tasks.UnsupportedFormatException;
 import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.zerock.api01.common.dto.MinioDTO;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
@@ -114,5 +119,38 @@ public class MinioServiceImpl implements MinioService {
 //                .filename(request.getFile().getOriginalFilename())
 //                .build();
         return fileName;
+    }
+
+    @Override
+    public void saveThumbnail(MultipartFile file, String fileName) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        try {
+            InputStream thumbNailInputStream = getThumbNailInputStream(file);
+            String thumbNailPrefix = "t_";
+
+            minioClient.putObject(PutObjectArgs.builder()
+                    .bucket(bucketName)
+                    .object(thumbNailPrefix + fileName)
+                    .contentType(file.getContentType())
+                    .stream(thumbNailInputStream, thumbNailInputStream.available(), -1)
+                    .build());
+        } catch (Exception e) {
+            log.error("Happened error when upload file: ", e);
+            throw e;
+        }
+    }
+
+    private InputStream getThumbNailInputStream(MultipartFile file) throws IOException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        try{
+            Thumbnailator.createThumbnail(file.getInputStream(),bos,100,100);
+            InputStream is = new ByteArrayInputStream(bos.toByteArray());
+            return is;
+        } catch (UnsupportedFormatException exception){
+            throw exception;
+        } catch (Exception e){
+            throw e;
+        } finally {
+            bos.close();
+        }
     }
 }

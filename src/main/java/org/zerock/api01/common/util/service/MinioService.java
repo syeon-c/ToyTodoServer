@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.zerock.api01.common.dto.MinioDTO;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -18,5 +19,7 @@ public interface MinioService {
     byte[] getFileByteArr(GetObjectResponse getObjectResponse) throws IOException;
 
     String uploadFile(MultipartFile multipartFile);
+
+    void saveThumbnail(MultipartFile file, String fileName) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException;
 
 }
