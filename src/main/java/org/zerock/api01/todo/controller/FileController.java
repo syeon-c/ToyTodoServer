@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.zerock.api01.common.util.service.MinioService;
+import org.zerock.api01.todo.dto.FileDeleteDTO;
 
 import java.io.IOException;
 import java.security.InvalidKeyException;
@@ -104,6 +105,17 @@ public class FileController {
 
         return new ResponseEntity<>(fileByte, headers, HttpStatus.OK);
 
+    }
+
+    @DeleteMapping("delete")
+    public boolean deleteFiles(@RequestBody FileDeleteDTO fileDeleteDTO) {
+
+        log.info("==========Delete Files==========");
+        log.info("fnames: " + fileDeleteDTO.getFnames());
+
+        minioService.deleteFile(fileDeleteDTO.getFnames());
+
+        return true;
     }
 
 

@@ -3,6 +3,7 @@ package org.zerock.api01.common.util.service;
 import io.minio.*;
 import io.minio.errors.*;
 import io.minio.messages.Bucket;
+import io.minio.messages.DeleteObject;
 import io.minio.messages.Item;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -23,6 +24,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -151,6 +153,46 @@ public class MinioServiceImpl implements MinioService {
             throw e;
         } finally {
             bos.close();
+        }
+    }
+
+    @Override
+    public void deleteFile(String fileName) {
+
+        try {
+            minioClient.removeObject(RemoveObjectArgs.builder()
+                    .bucket(bucketName)
+                    .object(fileName)
+                    .build());
+
+            minioClient.removeObject(RemoveObjectArgs.builder()
+                    .bucket(bucketName)
+                    .object("t_" + fileName)
+                    .build());
+        } catch (Exception e) {
+            log.info(e.getMessage());
+        }
+
+    }
+    @Override
+    public void deleteFile(List<String> filenames) {
+
+        for (String fileName : filenames) {
+
+            try {
+                minioClient.removeObject(RemoveObjectArgs.builder()
+                        .bucket(bucketName)
+                        .object(fileName)
+                        .build());
+
+                minioClient.removeObject(RemoveObjectArgs.builder()
+                        .bucket(bucketName)
+                        .object("t_" + fileName)
+                        .build());
+            } catch (Exception e) {
+                log.info(e.getMessage());
+            }
+
         }
     }
 }

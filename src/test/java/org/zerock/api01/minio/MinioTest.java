@@ -13,6 +13,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootTest
 @Log4j2
@@ -56,6 +58,16 @@ public class MinioTest {
         log.info("============Get Image Test=============");
         log.info(arr);
 
+    }
+
+    @Test
+    public void deleteImages() {
+
+        String fileName = "2023-02-06T15:07:41.667750jenkins_logo_icon_170552.png";
+        List<String> fileNames = new ArrayList<>();
+        fileNames.add(fileName);
+
+        minioService.deleteFile(fileNames);
     }
 
 }
