@@ -9,12 +9,13 @@
             tbl_files (
                 fname,
                 tno,
-                isMain
+                isMain,
+                deletedAt
             )
             values
                 <foreach collection="fileInfo" item="info" separator=",">
 
-                    (#{info.fname}, #{tno}, #{info.isMain})
+                    (#{info.fname}, #{tno}, #{info.isMain}, null)
 
                 </foreach>
 

@@ -3,15 +3,17 @@ package org.zerock.api01.todo.mapper;
 import org.zerock.api01.common.dto.PageRequestDTO;
 import org.zerock.api01.common.dto.PageResponseDTO;
 import org.zerock.api01.todo.dto.TodoDTO;
+import org.zerock.api01.todo.dto.TodoFileDetailDTO;
+import org.zerock.api01.todo.dto.TodoListDTO;
 import org.zerock.api01.todo.dto.TodoRequestDTO;
 
 import java.util.List;
 
 public interface TodoMapper {
 
-    TodoDTO getTodo(Long id);
+    TodoFileDetailDTO getTodo(Long id);
 
-    List<TodoDTO> getList(TodoRequestDTO todoRequestDTO);
+    List<TodoListDTO> getList(TodoRequestDTO todoRequestDTO);
 
     int getCount(TodoRequestDTO todoRequestDTO);
 
@@ -20,6 +22,8 @@ public interface TodoMapper {
     void updateTodo(TodoDTO todoDTO);
 
     void addTodo(TodoDTO todoDTO);
+
+    String getFileName(Long tno);
 
 
 }

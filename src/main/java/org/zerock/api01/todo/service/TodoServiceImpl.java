@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.zerock.api01.common.dto.PageRequestDTO;
 import org.zerock.api01.common.dto.PageResponseDTO;
 import org.zerock.api01.todo.dto.TodoDTO;
+import org.zerock.api01.todo.dto.TodoFileDetailDTO;
+import org.zerock.api01.todo.dto.TodoListDTO;
 import org.zerock.api01.todo.dto.TodoRequestDTO;
 import org.zerock.api01.todo.mapper.TodoMapper;
 
@@ -21,7 +23,7 @@ public class TodoServiceImpl implements TodoService{
     private final TodoMapper todoMapper;
 
     @Override
-    public TodoDTO getTodo(Long id) {
+    public TodoFileDetailDTO getTodo(Long id) {
 
         log.info("getTodo: " + id);
 
@@ -42,13 +44,13 @@ public class TodoServiceImpl implements TodoService{
     }
 
     @Override
-    public PageResponseDTO<TodoDTO> getList(TodoRequestDTO todoRequestDTO) {
+    public PageResponseDTO<TodoListDTO> getList(TodoRequestDTO todoRequestDTO) {
 
-        List<TodoDTO> dtoList = todoMapper.getList(todoRequestDTO);
+        List<TodoListDTO> dtoList = todoMapper.getList(todoRequestDTO);
 
         int count = todoMapper.getCount(todoRequestDTO);
 
-        PageResponseDTO<TodoDTO> result = PageResponseDTO.<TodoDTO>withAll()
+        PageResponseDTO<TodoListDTO> result = PageResponseDTO.<TodoListDTO>withAll()
                 .pageRequestDTO(todoRequestDTO)
                 .dtoList(dtoList)
                 .total(count)

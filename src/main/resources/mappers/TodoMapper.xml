@@ -4,6 +4,21 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zerock.api01.todo.mapper.TodoMapper">
 
+
+    <resultMap id="todoFileDetail" type="todoFileDetailDTO">
+
+        <id property="tno" column="tno" />
+        <result property="title" column="title"/>
+        <result property="writer" column="writer"/>
+        <collection property="fnames" javaType="java.util.ArrayList" resultMap="getFileName" />
+
+    </resultMap>
+
+    <resultMap id="getFileName" type="string">
+        <result column="fname"></result>
+    </resultMap>
+
+
     <sql id="search">
 
         <where>
@@ -24,19 +39,51 @@
 
     </sql>
 
+<!--    <select id="getFileName" resultType="String" parameterType="Long">-->
 
-    <select id="getTodo" resultType="org.zerock.api01.todo.dto.TodoDTO">
-        select tno, title, writer from tbl_todo where tno=#{id}
+<!--        select-->
+<!--            fname-->
+<!--        from-->
+<!--            tbl_files-->
+<!--        where-->
+<!--            tno = #{tno}-->
+
+<!--    </select>-->
+
+
+    <select id="getTodo" resultMap="todoFileDetail">
+
+        select
+            t.*,
+            f.fname
+        from
+            tbl_todo as t
+        left join tbl_files as f
+        on
+            t.tno = f.tno
+        where
+            t.tno = #{id}
+
+
+
     </select>
 
     <delete id="deleteTodo">
         delete from tbl_todo where tno=#{id}
     </delete>
 
-    <select id="getList" resultType="org.zerock.api01.todo.dto.TodoDTO">
-        select *
+    <select id="getList" resultType="org.zerock.api01.todo.dto.TodoListDTO">
+        select
+            t.tno,
+            t.title,
+            t.writer,
+            f.fname
         from
-            tbl_todo
+            tbl_todo as t
+            left join tbl_files as f
+            on
+                t.tno = f.tno
+            and f.isMain = true
 
         <include refid="search"></include>
 

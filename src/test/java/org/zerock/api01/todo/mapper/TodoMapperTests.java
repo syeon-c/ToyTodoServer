@@ -1,10 +1,12 @@
 package org.zerock.api01.todo.mapper;
 
+import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.zerock.api01.common.dto.PageRequestDTO;
 import org.zerock.api01.todo.dto.TodoDTO;
+import org.zerock.api01.todo.dto.TodoListDTO;
 import org.zerock.api01.todo.dto.TodoRequestDTO;
 
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.stream.IntStream;
 
 
 @SpringBootTest
+@Log4j2
 public class TodoMapperTests {
 
     @Autowired(required = false)
@@ -64,7 +67,7 @@ public class TodoMapperTests {
         todoRequestDTO.setCondition("total,writer");
         todoRequestDTO.setKeyword("11");
 
-        List<TodoDTO> dtoList = todoMapper.getList(todoRequestDTO);
+        List<TodoListDTO> dtoList = todoMapper.getList(todoRequestDTO);
         System.out.println("Search: " + dtoList);
     }
 
@@ -77,5 +80,27 @@ public class TodoMapperTests {
         todoRequestDTO.setCondition("title");
         todoRequestDTO.setKeyword("11");
         todoMapper.getCount(todoRequestDTO);
+    }
+
+    @Test
+    public void getTodoTest() {
+
+        todoMapper.getTodo(131L);
+
+    }
+
+    @Test
+    public void getThumbnailTest() {
+
+        TodoRequestDTO todoRequestDTO = new TodoRequestDTO();
+        todoRequestDTO.setPage(1);
+        todoRequestDTO.setSize(10);
+        todoRequestDTO.setCondition("title");
+        todoRequestDTO.setKeyword("cat");
+
+
+        List<TodoListDTO> dtoList = todoMapper.getList(todoRequestDTO);
+        log.info("Thumbnail......." + dtoList);
+
     }
 }

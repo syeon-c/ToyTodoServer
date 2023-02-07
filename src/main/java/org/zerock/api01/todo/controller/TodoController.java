@@ -5,10 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
 import org.zerock.api01.common.dto.PageResponseDTO;
-import org.zerock.api01.todo.dto.FileAddDTO;
-import org.zerock.api01.todo.dto.TodoDTO;
-import org.zerock.api01.todo.dto.TodoFileDTO;
-import org.zerock.api01.todo.dto.TodoRequestDTO;
+import org.zerock.api01.todo.dto.*;
 import org.zerock.api01.todo.service.FileService;
 import org.zerock.api01.todo.service.TodoService;
 
@@ -36,7 +33,7 @@ public class TodoController {
 //    }
 
     @GetMapping("list")
-    public PageResponseDTO<TodoDTO> getSearchList(TodoRequestDTO todoRequestDTO) {
+    public PageResponseDTO<TodoListDTO> getSearchList(TodoRequestDTO todoRequestDTO) {
         log.info(todoRequestDTO);
         log.info("===========TodoReqDTO==========");
         log.info(todoRequestDTO.getKeyword());
@@ -44,16 +41,15 @@ public class TodoController {
         log.info(todoRequestDTO.getPage());
         log.info(todoRequestDTO.getSize());
 
-        PageResponseDTO<TodoDTO> result = todoService.getList(todoRequestDTO);
+        PageResponseDTO<TodoListDTO> result = todoService.getList(todoRequestDTO);
         return result;
     }
 
     @GetMapping("details/{id}")
-    public TodoDTO getOne(@PathVariable Long id) {
+    public TodoFileDetailDTO getTodo(@PathVariable Long id) {
 
-        TodoDTO todoDTO = todoService.getTodo(id);
+        TodoFileDetailDTO todoDTO = todoService.getTodo(id);
         log.info("get one: " + todoDTO);
-
 
         return todoDTO;
     }
