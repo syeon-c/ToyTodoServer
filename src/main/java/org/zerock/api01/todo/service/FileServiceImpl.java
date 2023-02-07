@@ -8,6 +8,9 @@ import org.zerock.api01.todo.dto.FileAddDTO;
 import org.zerock.api01.todo.dto.FileDTO;
 import org.zerock.api01.todo.mapper.FileMapper;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -22,5 +25,10 @@ public class FileServiceImpl implements FileService {
         log.info("addFiles: " + fileAddDTO);
 
         fileMapper.addFiles(fileAddDTO);
+    }
+
+    @Override
+    public List<String> getDeletedFiles(LocalDate date) {
+        return fileMapper.getDeletedFiles(date);
     }
 }

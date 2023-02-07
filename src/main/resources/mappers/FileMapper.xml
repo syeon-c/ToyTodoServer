@@ -19,7 +19,15 @@
 
                 </foreach>
 
-
-
     </insert>
+
+
+    <select id="getDeletedFiles" resultType="string" parameterType="java.time.LocalDate">
+
+        select fname
+        from tbl_files
+        where DATE(deletedAt) = #{now}
+
+    </select>
+
 </mapper>

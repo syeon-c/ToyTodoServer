@@ -61,7 +61,7 @@ public class MinioTest {
     }
 
     @Test
-    public void deleteImages() {
+    public void deleteImages() throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
 
         String fileName = "2023-02-06T15:07:41.667750jenkins_logo_icon_170552.png";
         List<String> fileNames = new ArrayList<>();

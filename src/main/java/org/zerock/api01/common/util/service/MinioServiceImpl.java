@@ -3,6 +3,7 @@ package org.zerock.api01.common.util.service;
 import io.minio.*;
 import io.minio.errors.*;
 import io.minio.messages.Bucket;
+import io.minio.messages.DeleteError;
 import io.minio.messages.DeleteObject;
 import io.minio.messages.Item;
 import lombok.RequiredArgsConstructor;
@@ -175,24 +176,28 @@ public class MinioServiceImpl implements MinioService {
 
     }
     @Override
-    public void deleteFile(List<String> filenames) {
+    public void deleteFile(List<String> filenames) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
 
-        for (String fileName : filenames) {
+        try {
+            List<DeleteObject> objects = new LinkedList<>();
+            String thumbNailPrefix = "t_";
 
-            try {
-                minioClient.removeObject(RemoveObjectArgs.builder()
-                        .bucket(bucketName)
-                        .object(fileName)
-                        .build());
-
-                minioClient.removeObject(RemoveObjectArgs.builder()
-                        .bucket(bucketName)
-                        .object("t_" + fileName)
-                        .build());
-            } catch (Exception e) {
-                log.info(e.getMessage());
+            for(String filename: filenames){
+                objects.add(new DeleteObject(filename));
+                objects.add(new DeleteObject(thumbNailPrefix + filename));
             }
+            Iterable<Result<DeleteError>> results = minioClient.removeObjects(RemoveObjectsArgs.builder()
+                    .bucket(bucketName)
+                    .objects(objects)
+                    .build());
 
+            log.info("==========================================");
+            for(Result<DeleteError> result : results){
+                DeleteError error = result.get();
+                log.info(error.objectName() + "\n" + error.message());
+            }
+        } catch (Exception e) {
+            throw e;
         }
     }
 }

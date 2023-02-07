@@ -108,7 +108,7 @@ public class FileController {
     }
 
     @DeleteMapping("delete")
-    public boolean deleteFiles(@RequestBody FileDeleteDTO fileDeleteDTO) {
+    public boolean deleteFiles(@RequestBody FileDeleteDTO fileDeleteDTO) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
 
         log.info("==========Delete Files==========");
         log.info("fnames: " + fileDeleteDTO.getFnames());
