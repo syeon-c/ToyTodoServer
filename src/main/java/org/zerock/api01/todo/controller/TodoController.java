@@ -78,14 +78,10 @@ public class TodoController {
 
         todoService.addTodo(todoDTO);
 
-        FileAddDTO fileAddDTO = FileAddDTO.builder()
-                .tno(todoDTO.getTno())
-                .fileInfo(todoFileDTO.getFileInfo())
-                .build();
+        if (todoFileDTO.getFileInfo().size() != 0) {
 
-        log.info(fileAddDTO);
-
-        fileService.addFiles(fileAddDTO);
+            fileService.addFiles(todoFileDTO.getFileInfo(), todoDTO.getTno());
+        }
 
     }
 

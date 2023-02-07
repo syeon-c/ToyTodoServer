@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.zerock.api01.common.dto.PageRequestDTO;
 import org.zerock.api01.todo.dto.TodoDTO;
+import org.zerock.api01.todo.dto.TodoFileDetailDTO;
 import org.zerock.api01.todo.dto.TodoListDTO;
 import org.zerock.api01.todo.dto.TodoRequestDTO;
 
@@ -85,8 +86,8 @@ public class TodoMapperTests {
     @Test
     public void getTodoTest() {
 
-        todoMapper.getTodo(131L);
-
+        log.info("GET TODO: ");
+        log.info(todoMapper.getTodo(6L));
     }
 
     @Test

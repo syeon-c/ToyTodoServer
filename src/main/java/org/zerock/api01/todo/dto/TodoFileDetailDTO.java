@@ -18,6 +18,8 @@ public class TodoFileDetailDTO {
 
     private String writer;
 
-    private List<String> fnames;
+    private List<FileDTO> files;
+
+
 
 }

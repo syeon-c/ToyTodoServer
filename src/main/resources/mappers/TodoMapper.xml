@@ -10,12 +10,15 @@
         <id property="tno" column="tno" />
         <result property="title" column="title"/>
         <result property="writer" column="writer"/>
-        <collection property="fnames" javaType="java.util.ArrayList" resultMap="getFileName" />
+        <collection property="files" javaType="java.util.ArrayList" resultMap="getFiles" />
 
     </resultMap>
 
-    <resultMap id="getFileName" type="string">
-        <result column="fname"></result>
+    <resultMap id="getFiles" type="fileDTO">
+        <id column="fno" property="fno" />
+        <result property="fname" column="fname" />
+        <result property="tno" column="tno" />
+        <result property="isMain" column="isMain" />
     </resultMap>
 
 
@@ -55,7 +58,10 @@
 
         select
             t.*,
-            f.fname
+            f.fno,
+            f.tno,
+            f.fname,
+            f.isMain
         from
             tbl_todo as t
         left join tbl_files as f

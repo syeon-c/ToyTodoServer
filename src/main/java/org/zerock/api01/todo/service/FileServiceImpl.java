@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.api01.todo.dto.FileAddDTO;
 import org.zerock.api01.todo.dto.FileDTO;
+import org.zerock.api01.todo.dto.FileInfoDTO;
 import org.zerock.api01.todo.mapper.FileMapper;
 
 import java.time.LocalDate;
@@ -20,7 +21,12 @@ public class FileServiceImpl implements FileService {
     private final FileMapper fileMapper;
 
     @Override
-    public void addFiles(FileAddDTO fileAddDTO) {
+    public void addFiles(List<FileInfoDTO> infoDTOList, Long tno) {
+
+        FileAddDTO fileAddDTO = FileAddDTO.builder()
+                .tno(tno)
+                .fileInfo(infoDTOList)
+                .build();
 
         log.info("addFiles: " + fileAddDTO);
 

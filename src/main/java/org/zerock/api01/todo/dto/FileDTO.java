@@ -2,9 +2,7 @@ package org.zerock.api01.todo.dto;
 
 import lombok.*;
 
-@Getter
-@Setter
-@Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class FileDTO {

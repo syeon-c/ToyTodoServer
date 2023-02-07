@@ -26,14 +26,14 @@ public class SchedulerService {
     private final MinioService minioService;
 
     @Async
-    @Scheduled(cron = "*/30 * * * * ?")
+    @Scheduled(cron = "0 0 0 1 * ?")
     public void test() throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
         log.info("cron test");
     }
 
 
     @Async
-    @Scheduled(cron = "*/30 * * * * ?")
+    @Scheduled(cron = "0 0 0 1 * ?")
     public void cronScheduler() throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
         List<String> fileList = fileService.getDeletedFiles(LocalDate.now());
         minioService.deleteFile(fileList);

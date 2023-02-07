@@ -145,7 +145,7 @@ public class MinioServiceImpl implements MinioService {
     private InputStream getThumbNailInputStream(MultipartFile file) throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try{
-            Thumbnailator.createThumbnail(file.getInputStream(),bos,100,100);
+            Thumbnailator.createThumbnail(file.getInputStream(),bos,200,200);
             InputStream is = new ByteArrayInputStream(bos.toByteArray());
             return is;
         } catch (UnsupportedFormatException exception){
