@@ -36,4 +36,9 @@ public class FileServiceImpl implements FileService {
     public List<String> getDeletedFiles(LocalDate date) {
         return fileMapper.getDeletedFiles(date);
     }
+
+    @Override
+    public void updateDeletedAt(Long tno) {
+        fileMapper.softDeleteFilesWithTno(tno);
+    }
 }

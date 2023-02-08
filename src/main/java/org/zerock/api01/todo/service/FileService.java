@@ -12,4 +12,6 @@ public interface FileService {
 
     List<String> getDeletedFiles(LocalDate date);
 
+    void updateDeletedAt(Long tno);
+
 }

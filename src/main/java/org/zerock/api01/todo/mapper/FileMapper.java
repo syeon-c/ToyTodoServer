@@ -13,6 +13,8 @@ public interface FileMapper {
 
     void softDeleteFiles(List<Long> fnos);
 
+    void softDeleteFilesWithTno(Long tno);
+
     void updateMain(Long mainFno);
 
     void setMainFalse(Long tno);

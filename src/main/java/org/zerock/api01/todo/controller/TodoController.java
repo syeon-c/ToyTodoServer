@@ -60,6 +60,7 @@ public class TodoController {
         log.info("deleteTodo: " + id);
 
         todoService.deleteTodo(id);
+        fileService.updateDeletedAt(id);
     }
 
 //    @PutMapping("")

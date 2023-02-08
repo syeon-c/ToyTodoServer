@@ -5,7 +5,7 @@ import lombok.*;
 
 import java.util.List;
 
-
+/** Todo Detail 관련 DTO **/
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

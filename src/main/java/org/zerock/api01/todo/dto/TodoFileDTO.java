@@ -4,6 +4,7 @@ import lombok.*;
 
 import java.util.List;
 
+/** Todo 게시글 추가 요청 DTO **/
 @Getter
 @Setter
 public class TodoFileDTO {

@@ -45,6 +45,17 @@
 
     </update>
 
+    <update id="softDeleteFilesWithTno">
+
+        update
+            tbl_files
+        set
+            deletedAt = now()
+        where
+            tno=#{tno}
+
+    </update>
+
     <update id="updateMain">
 
         update
