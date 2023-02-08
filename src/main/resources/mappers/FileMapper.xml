@@ -30,4 +30,44 @@
 
     </select>
 
+    <update id="softDeleteFiles" parameterType="java.util.List">
+
+        <foreach collection="list" item="fno" separator=";">
+
+            update
+                tbl_files
+            set
+                deletedAt = now()
+            where
+                fno=#{fno}
+
+        </foreach>
+
+    </update>
+
+    <update id="updateMain">
+
+        update
+            tbl_files
+        set
+            isMain=true
+        where
+            fno=#{mainFno}
+
+    </update>
+
+    <update id="setMainFalse">
+
+        update
+            tbl_files
+        set
+            isMain=false
+        where
+            tno=#{tno}
+            and isMain = true
+
+    </update>
+
+
+
 </mapper>

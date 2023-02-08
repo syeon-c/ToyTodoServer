@@ -12,12 +12,5 @@ public class TodoServiceTest {
     TodoService todoService;
 
 
-//    @Test
-//    public void updateTodoTest() {
-//        Long id = 458L;
-//
-//        TodoDTO todoDTO = todoService.getTodo(id);
-//
-//    }
 
 }

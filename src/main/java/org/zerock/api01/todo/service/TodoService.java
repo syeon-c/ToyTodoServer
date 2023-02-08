@@ -2,10 +2,7 @@ package org.zerock.api01.todo.service;
 
 import org.zerock.api01.common.dto.PageRequestDTO;
 import org.zerock.api01.common.dto.PageResponseDTO;
-import org.zerock.api01.todo.dto.TodoDTO;
-import org.zerock.api01.todo.dto.TodoFileDetailDTO;
-import org.zerock.api01.todo.dto.TodoListDTO;
-import org.zerock.api01.todo.dto.TodoRequestDTO;
+import org.zerock.api01.todo.dto.*;
 
 public interface TodoService {
 
@@ -15,7 +12,7 @@ public interface TodoService {
 
     void deleteTodo(Long id);
 
-    void updateTodo(TodoDTO todoDTO);
+    void updateTodo(TodoModDTO todoModDTO);
 
     void addTodo(TodoDTO todoDTO);
 }

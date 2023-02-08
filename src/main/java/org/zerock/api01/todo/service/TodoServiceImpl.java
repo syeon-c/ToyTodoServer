@@ -6,10 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.api01.common.dto.PageRequestDTO;
 import org.zerock.api01.common.dto.PageResponseDTO;
-import org.zerock.api01.todo.dto.TodoDTO;
-import org.zerock.api01.todo.dto.TodoFileDetailDTO;
-import org.zerock.api01.todo.dto.TodoListDTO;
-import org.zerock.api01.todo.dto.TodoRequestDTO;
+import org.zerock.api01.todo.dto.*;
+import org.zerock.api01.todo.mapper.FileMapper;
 import org.zerock.api01.todo.mapper.TodoMapper;
 
 import java.util.List;
@@ -21,6 +19,8 @@ import java.util.List;
 public class TodoServiceImpl implements TodoService{
 
     private final TodoMapper todoMapper;
+
+    private final FileMapper fileMapper;
 
     @Override
     public TodoFileDetailDTO getTodo(Long id) {
@@ -38,9 +38,34 @@ public class TodoServiceImpl implements TodoService{
     }
 
     @Override
-    public void updateTodo(TodoDTO todoDTO) {
-        todoMapper.updateTodo(todoDTO);
-        log.info(todoDTO);
+    public void updateTodo(TodoModDTO todoModDTO) {
+
+        fileMapper.setMainFalse(todoModDTO.getTno());
+
+        // Update Title
+        todoMapper.updateTodo(todoModDTO);
+
+        if (todoModDTO.getMainFno() != 0) {
+
+            fileMapper.updateMain(todoModDTO.getMainFno());
+
+        }
+
+        // Update DeletedAt Date
+        if (todoModDTO.getRemovedFnos().size() != 0) {
+            fileMapper.softDeleteFiles(todoModDTO.getRemovedFnos());
+        }
+
+        // Update Added File List
+        if (todoModDTO.getAddedFileNames().size() != 0) {
+            FileAddDTO fileAddDTO = FileAddDTO.builder()
+                    .tno(todoModDTO.getTno())
+                    .fileInfo(todoModDTO.getAddedFileNames())
+                    .build();
+
+            fileMapper.addFiles(fileAddDTO);
+        }
+
     }
 
     @Override

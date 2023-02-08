@@ -59,14 +59,13 @@
         select
             t.*,
             f.fno,
-            f.tno,
-            f.fname,
-            f.isMain
+            f.fname
         from
-            tbl_todo as t
-        left join tbl_files as f
+            tbl_todo t
+        left join tbl_files f
         on
             t.tno = f.tno
+            and f.deletedAt is null
         where
             t.tno = #{id}
 
@@ -85,14 +84,15 @@
             t.writer,
             f.fname
         from
-            tbl_todo as t
-            left join tbl_files as f
+            tbl_todo t
+        left join tbl_files f
             on
                 t.tno = f.tno
-            and f.isMain = true
+            and f.deletedAt is null
 
         <include refid="search"></include>
 
+        group by t.tno
         order by tno desc
         limit #{skip}, #{size}
 
@@ -107,12 +107,11 @@
 
     </select>
 
-    <update id="updateTodo">
+    <update id="updateTodo" parameterType="todoModDTO">
         update
             tbl_todo
         set
-            title=#{title},
-            writer=#{writer}
+            title=#{title}
         where
             tno=#{tno}
 

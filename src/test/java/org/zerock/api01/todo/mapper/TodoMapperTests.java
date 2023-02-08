@@ -10,6 +10,7 @@ import org.zerock.api01.todo.dto.TodoFileDetailDTO;
 import org.zerock.api01.todo.dto.TodoListDTO;
 import org.zerock.api01.todo.dto.TodoRequestDTO;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -30,7 +31,9 @@ public class TodoMapperTests {
     @Test
     public void deleteTodo() {
 
-        todoMapper.deleteTodo(2L);
+        IntStream.rangeClosed(101, 200).forEach((i) -> {
+            todoMapper.deleteTodo((Long.valueOf(i)));
+        });
     }
 
 //    @Test
@@ -104,4 +107,5 @@ public class TodoMapperTests {
         log.info("Thumbnail......." + dtoList);
 
     }
+
 }

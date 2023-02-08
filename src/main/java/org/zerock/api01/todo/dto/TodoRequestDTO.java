@@ -3,6 +3,7 @@ package org.zerock.api01.todo.dto;
 import lombok.*;
 import org.zerock.api01.common.dto.PageRequestDTO;
 
+/** Todo 정보 검색 요청 DTO **/
 @Getter
 @Setter
 @AllArgsConstructor

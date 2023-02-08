@@ -12,6 +12,4 @@ public class FileDTO {
     private String fname;
 
     private Long tno;
-
-    private Boolean isMain;
 }

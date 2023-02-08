@@ -62,12 +62,21 @@ public class TodoController {
         todoService.deleteTodo(id);
     }
 
+//    @PutMapping("")
+//    public void updateTodo(@RequestBody TodoDTO todoDTO) {
+//        log.info("=======UpdateTodo======");
+//        log.info(todoDTO);
+//        todoService.updateTodo(todoDTO);
+//    }
+
     @PutMapping("")
-    public void updateTodo(@RequestBody TodoDTO todoDTO) {
+    public void updateTodo(@RequestBody TodoModDTO todoModDTO) {
         log.info("=======UpdateTodo======");
-        log.info(todoDTO);
-        todoService.updateTodo(todoDTO);
+        log.info(todoModDTO);
+        todoService.updateTodo(todoModDTO);
     }
+
+
 
     @PostMapping("")
     public void addTodo(@RequestBody TodoFileDTO todoFileDTO) {

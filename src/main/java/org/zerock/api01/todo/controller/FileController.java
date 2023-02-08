@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.zerock.api01.common.util.service.MinioService;
-import org.zerock.api01.todo.dto.FileDeleteDTO;
+
 
 import java.io.IOException;
 import java.security.InvalidKeyException;
@@ -108,12 +108,12 @@ public class FileController {
     }
 
     @DeleteMapping("delete")
-    public boolean deleteFiles(@RequestBody FileDeleteDTO fileDeleteDTO) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+    public boolean deleteFiles(@RequestBody List<String> fnames) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
 
         log.info("==========Delete Files==========");
-        log.info("fnames: " + fileDeleteDTO.getFnames());
+        log.info("fnames: " + fnames);
 
-        minioService.deleteFile(fileDeleteDTO.getFnames());
+        minioService.deleteFile(fnames);
 
         return true;
     }

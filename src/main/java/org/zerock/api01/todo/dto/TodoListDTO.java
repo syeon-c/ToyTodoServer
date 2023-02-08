@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.Alias;
 import org.checkerframework.checker.units.qual.A;
 
+/** Todo 게시글 리스트 DTO **/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,6 +21,7 @@ public class TodoListDTO {
 
     private String writer;
 
+    // thumbnail
     private String fname;
 
 }
